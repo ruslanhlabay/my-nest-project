@@ -26,7 +26,7 @@ export class AuthService {
         if ( user && passwordEquals ) {
             return user
         }
- 
+
         throw new UnauthorizedException({message: 'Помилка в email або паролі'})
     }
 

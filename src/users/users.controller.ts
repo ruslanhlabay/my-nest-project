@@ -1,5 +1,8 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles-auth.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
 import { UsersService } from './users.service';
@@ -20,6 +23,8 @@ export class UsersController {
 
     @ApiOperation({summary: 'Отримати всіх користувачів'})
     @ApiResponse({status: 200, type: [User]})
+    @Roles('ADMIN')
+    @UseGuards(RolesGuard)
     @Get()
     getAll() {
         return this.userService.getAllUsers()
