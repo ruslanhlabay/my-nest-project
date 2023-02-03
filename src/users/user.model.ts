@@ -17,32 +17,32 @@ export class User extends Model<User, UserCreationAttrs> {
         unique: true,
         autoIncrement: true,
         primaryKey: true})
-    id: number
+        id: number
 
     @ApiProperty({example: 'user@mail.com', description: 'Поштова адреса користувача'})
     @Column({
         type: DataType.STRING,
         unique: true,
         allowNull: false})
-    email: string
+        email: string
 
     @ApiProperty({example: 'qwerty1234', description: 'Пароль користувача'})
     @Column({
         type: DataType.STRING,
         allowNull: false})
-    password: string
+        password: string
 
     @ApiProperty({example: 'true', description: 'Користувача забанено чи ні'})
     @Column({
         type: DataType.BOOLEAN,
         allowNull: false,
         defaultValue: false})
-    banned: boolean
+        banned: boolean
 
     @ApiProperty({example: 'За образливі висловлювання', description: 'Причина блокування користувача'})
     @Column({type: DataType.STRING,
-    allowNull: true})
-    banReason: string
+        allowNull: true})
+        banReason: string
 
     @BelongsToMany(() => Role, () => UserRoles)
     roles: Role[]

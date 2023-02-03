@@ -6,28 +6,47 @@ import { Roles } from '../auth/roles-auth.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
 import { UsersService } from './users.service';
+import { AddRoleDto } from './dto/add-role.dto';
+import { banUserDto } from './dto/ban-user.dto';
 
 
 @ApiTags('Користувачі')
 @Controller('users')
 export class UsersController {
     
-    constructor(private userService: UsersService) {}
+    constructor(private usersService: UsersService) {}
 
     @ApiOperation({summary: 'Створення користувача'})
     @ApiResponse({status: 201, type: User})
     @Post()
     create(@Body() userDto: CreateUserDto) {
-        return this.userService.createUser(userDto)
+        return this.usersService.createUser(userDto)
     }
 
     @ApiOperation({summary: 'Отримати всіх користувачів'})
     @ApiResponse({status: 200, type: [User]})
-    @Roles('ADMIN')
+    @Roles('USER')
     @UseGuards(RolesGuard)
     @Get()
     getAll() {
-        return this.userService.getAllUsers()
+        return this.usersService.getAllUsers()
     }
 
+    @ApiOperation({summary: 'Видати роль'})
+    @ApiResponse({status: 200})
+    @Roles("ADMIN")
+    @UseGuards(RolesGuard)
+    @Post('/role')
+    addRole(@Body() dto: AddRoleDto) {
+        return this.usersService.addRole(dto)
+    }
+
+    @ApiOperation({summary: 'Забанити користувача'})
+    @ApiResponse({status: 200})
+    @Roles("ADMIN")
+    @UseGuards(RolesGuard)
+    @Post('/ban')
+    ban(@Body() dto: banUserDto) {
+        return this.usersService.ban(dto)
+    }
 }
