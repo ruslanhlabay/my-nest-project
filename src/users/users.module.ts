@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Post } from 'src/posts/posts.model';
+import { Post } from '../posts/posts.model';
 import { AuthModule } from '../auth/auth.module';
 import { Role } from '../roles/roles.model';
 import { RolesModule } from '../roles/roles.module';
